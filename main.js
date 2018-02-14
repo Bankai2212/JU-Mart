@@ -121,15 +121,15 @@ class JU_Mart extends React.Component{
       <div>
         <h1>JU-Mart</h1>
         <div className="container">
-          <div className="flex-item">
+          <div className="flex-item1">
             <Add_DeleteAll_Btn
               onShowAddPage={this.handleShowAddPage}
               onDeleteAll={this.handleDeleteAll}/>
           </div>
-          <div className="flex-item">
+          <div className="flex-item2">
             <TestListAll productList={this.state.productList}/>
           </div>
-          <div className="flex-item">
+          <div className="flex-item3">
             <AddProductForm
               showAddPage={this.state.showAddPage}
               onHideAddPage={this.handleHideAddPage}

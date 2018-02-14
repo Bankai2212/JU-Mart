@@ -3,11 +3,25 @@
   justify-content: space-between;
 }
 
-.flex-item {
+.flex-item1 {
+  margin-left: 20px;
+  border: 1px solid black;
+  padding: 10px;
+  width: 15%
+}
+
+.flex-item2 {
   margin-left: 20px;
   border: 1px solid black;
   padding: 10px;
   flex-grow: 1;
+}
+
+.flex-item3{
+  margin-left: 20px;
+  border: 1px solid black;
+  padding: 10px;
+  width: 30%
 }
 
 .fileInput {
