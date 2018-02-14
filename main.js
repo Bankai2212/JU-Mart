@@ -3,8 +3,9 @@ import ReactDOM from 'react-dom';
 import { createStore } from 'redux';
 import Add_DeleteAll_Btn from './Add_DeleteAll_Btn.jsx';
 import AddProductForm from './AddProductForm.jsx';
-//testing purpose
-import TestListAll from './TestListAll.jsx';
+import ViewProduct from './viewProduct.jsx';
+import ProductDetail from './ProductDetail.jsx';
+import EditProductForm from './EditProductForm.jsx';
 import './style.css';
 //import ImageUploader from 'react-image-uploader';
 //import ImagesUploader from 'react-images-uploader';
@@ -14,12 +15,28 @@ import './style.css';
 
 var defaultState = {
   showAddPage: false,
+  showDetailPage: false,
+  showEditPage: false,
   productList: []
+
 };
 
 function showAddPage(){
   return {
     type: 'SHOW_ADD_PAGE'
+  };
+}
+
+function showDetailPage(){
+  return {
+    type: 'SHOW_DETAIL_PAGE'
+
+  };
+}
+
+function showEditPage(){
+  return {
+    type: 'SHOW_EDIT_PAGE'
   };
 }
 
@@ -29,10 +46,30 @@ function hideAddPage(){
   };
 }
 
+function hideDetailPage(){
+  return {
+    type: 'HIDE_DETAIL_PAGE'
+  };
+}
+
+function hideEditPage(){
+  return {
+    type: 'HIDE_EDIT_PAGE'
+  };
+}
+
 function addProduct(product){
   return {
     type: 'ADD_PRODUCT',
     product: product
+  };
+}
+
+function editProduct(product, index){
+  return {
+    type: 'EDIT_PRODUCT',
+    product: product,
+    index: index
   };
 }
 
@@ -49,14 +86,40 @@ function reducer(state, action){
       newState.showAddPage = true;
       return newState;
 
+    case 'SHOW_DETAIL_PAGE':
+      var newState = Object.assign({}, state);
+      newState.showDetailPage = true;
+
+      return newState;
+
+    case 'SHOW_EDIT_PAGE':
+      var newState = Object.assign({}, state);
+      newState.showEditPage = true;
+      return newState;
+
     case 'HIDE_ADD_PAGE':
       var newState = Object.assign({}, state);
       newState.showAddPage = false;
       return newState;
 
+    case 'HIDE_DETAIL_PAGE':
+      var newState = Object.assign({}, state);
+      newState.showDetailPage = false;
+      return newState;
+
+    case 'HIDE_EDIT_PAGE':
+      var newState = Object.assign({}, state);
+      newState.showEditPage = false;
+      return newState;
+
     case 'ADD_PRODUCT':
       var newState = Object.assign({}, state);
       newState.productList.push(action.product);
+      return newState;
+
+    case 'EDIT_PRODUCT':
+      var newState = Object.assign({}, state);
+      newState.productList[action.index]= action.product;
       return newState;
 
     case 'DELETE_ALL':
@@ -85,9 +148,14 @@ class JU_Mart extends React.Component{
     super(props);
     this.handleShowAddPage = this.handleShowAddPage.bind(this);
     this.handleHideAddPage = this.handleHideAddPage.bind(this);
+    this.handleShowDetailPage = this.handleShowDetailPage.bind(this);
+    this.handleHideDetailPage = this.handleHideDetailPage.bind(this);
+    this.handleShowEditPage = this.handleShowEditPage.bind(this);
+    this.handleHideEditPage = this.handleHideEditPage.bind(this);
     this.handleAddProductSubmit = this.handleAddProductSubmit.bind(this);
+    this.handleEditProductSubmit = this.handleEditProductSubmit.bind(this);
     this.handleDeleteAll = this.handleDeleteAll.bind(this);
-    this.state = {showAddPage: false, productList: []};
+    this.state = {showAddPage: false, showDetailPage: false, showEditPage:false, productIndex: null, productList: []};
   }
 
   componentWillMount() {
@@ -95,7 +163,10 @@ class JU_Mart extends React.Component{
       var state = store.getState();
       this.setState({
         showAddPage: state.showAddPage,
+        showDetailPage: state.showDetailPage,
+        showEditPage: state.showEditPage,
         productList: state.productList
+
       });
     });
   }
@@ -106,6 +177,27 @@ class JU_Mart extends React.Component{
 
   handleHideAddPage(){
     store.dispatch(hideAddPage());
+  }
+
+  handleShowDetailPage(index){
+    store.dispatch(showDetailPage());
+    this.setState({productIndex: index});
+  }
+
+  handleHideDetailPage(){
+    store.dispatch(hideDetailPage());
+  }
+
+  handleShowEditPage(){
+    store.dispatch(showEditPage());
+  }
+
+  handleHideEditPage(){
+    store.dispatch(hideEditPage());
+  }
+
+  handleEditProductSubmit(newProduct, index){
+    store.dispatch(editProduct(newProduct, index));
   }
 
   handleAddProductSubmit(product){
@@ -127,7 +219,10 @@ class JU_Mart extends React.Component{
               onDeleteAll={this.handleDeleteAll}/>
           </div>
           <div className="flex-item2">
-            <TestListAll productList={this.state.productList}/>
+            <ViewProduct
+              products={this.state.productList}
+              onShowDetailPage={this.handleShowDetailPage}
+              onHideAddPage={this.handleHideAddPage}/>
           </div>
           <div className="flex-item3">
             <AddProductForm
@@ -135,6 +230,24 @@ class JU_Mart extends React.Component{
               onHideAddPage={this.handleHideAddPage}
               onAddProductSubmit={this.handleAddProductSubmit}/>
           </div>
+          <div className="flex-item3">
+            <ProductDetail
+              showDetailPage={this.state.showDetailPage}
+              products={this.state.productList}
+              productIndex={this.state.productIndex}
+              onShowEditPage={this.handleShowEditPage}/>
+          </div>
+          <div className="flex-item3">
+            <EditProductForm
+              showEditPage={this.state.showEditPage}
+              onHideEditPage={this.handleHideEditPage}
+              onHideDetailPage={this.handleHideDetailPage}
+              onEditProductSubmit={this.handleEditProductSubmit}
+              onShowDetailPage={this.handleShowDetailPage}
+              products={this.state.productList}
+              productIndex={this.state.productIndex}/>
+          </div>
+
         </div>
       </div>
     );
