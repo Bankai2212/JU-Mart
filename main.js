@@ -5,9 +5,9 @@ import Add_DeleteAll_Btn from './Add_DeleteAll_Btn.jsx';
 import AddProductForm from './AddProductForm.jsx';
 import './style.css';
 //import ImageUploader from 'react-image-uploader';
-//import ImagesUploader from 'react-images-uploader';
-//import 'react-images-uploader/styles.css';
-//import 'react-images-uploader/font.css';
+import ImagesUploader from 'react-images-uploader';
+import 'react-images-uploader/styles.css';
+import 'react-images-uploader/font.css';
 import ImageUploader from 'react-images-upload';
 
 var defaultState = {
@@ -159,6 +159,17 @@ class JU_Mart extends React.Component{
             />
             <br/>
             <button onClick={this.check}>Check</button>
+          </div>
+          <div className="flex-item">
+            <ImagesUploader
+                url="#"
+                optimisticPreviews
+                onLoadEnd={(err) => {
+                    if (err) {
+                        console.error(err);
+                    }
+                }}
+                label="Upload multiple images"/>
           </div>
         </div>
       </div>
