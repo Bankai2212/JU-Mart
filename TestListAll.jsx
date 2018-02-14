@@ -21,6 +21,9 @@ class TestListAll extends React.Component{
       }
     );
 
+    if(productList.length == 0){
+      return <h4>There are no product in the list</h4>;
+    }
     return(
       <ul>{productList}</ul>
     );
