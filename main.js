@@ -5,9 +5,10 @@ import Add_DeleteAll_Btn from './Add_DeleteAll_Btn.jsx';
 import AddProductForm from './AddProductForm.jsx';
 import './style.css';
 //import ImageUploader from 'react-image-uploader';
-import ImagesUploader from 'react-images-uploader';
-import 'react-images-uploader/styles.css';
-import 'react-images-uploader/font.css';
+//import ImagesUploader from 'react-images-uploader';
+//import 'react-images-uploader/styles.css';
+//import 'react-images-uploader/font.css';
+import ImageUploader from 'react-images-upload';
 
 var defaultState = {
   showAddPage: false,
@@ -66,7 +67,7 @@ function reducer(state, action){
   }
 };
 
-/*
+/* used by react-image-uploader
 function uploadImage(file, done, progress) {
   // do your upload logic here
   let error = null;
@@ -84,7 +85,9 @@ class JU_Mart extends React.Component{
     this.handleHideAddPage = this.handleHideAddPage.bind(this);
     this.handleAddProductSubmit = this.handleAddProductSubmit.bind(this);
     this.handleDeleteAll = this.handleDeleteAll.bind(this);
-    this.state = {showAddPage: false, productList: []};
+    this.onDrop = this.onDrop.bind(this);
+    this.check = this.check.bind(this);
+    this.state = {showAddPage: false, productList: [], pictures: []};
   }
 
   componentWillMount() {
@@ -113,6 +116,16 @@ class JU_Mart extends React.Component{
     store.dispatch(deleteAll());
   }
 
+  onDrop(picture) {
+    this.setState({
+        pictures: this.state.pictures.concat(picture),
+    });
+  }
+
+  check(){
+    console.log(this.state.pictures);
+  }
+
   //testing purpose
   handleCheckData(){
     console.log(store.getState());
@@ -137,15 +150,15 @@ class JU_Mart extends React.Component{
               onAddProductSubmit={this.handleAddProductSubmit}/>
           </div>
           <div className="flex-item">
-          <ImagesUploader
-              url="http://localhost:9090/multiple"
-              optimisticPreviews
-              onLoadEnd={(err) => {
-                  if (err) {
-                      console.error(err);
-                  }
-              }}
-              label="Upload multiple images"/>
+            <ImageUploader
+                withIcon={true}
+                buttonText='Choose images'
+                onChange={this.onDrop}
+                imgExtension={['.jpg', '.gif', '.png', '.gif']}
+                maxFileSize={5242880}
+            />
+            <br/>
+            <button onClick={this.check}>Check</button>
           </div>
         </div>
       </div>

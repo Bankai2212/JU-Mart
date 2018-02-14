@@ -6,22 +6,24 @@ class AddProductForm extends React.Component{
     this.handleAddBtnSubmit = this.handleAddBtnSubmit.bind(this);
     this.handleCancelClick = this.handleCancelClick.bind(this);
     this.handleInputChange = this.handleInputChange.bind(this);
-    this.state = {name: '', description: '', image: '', price: '',
-      category: '', quantity: ''};
+    this.handleImageChange = this.handleImageChange.bind(this);
+    this.handleCheckImage = this.handleCheckImage.bind(this);
+    this.state = {name: '', description: '', price: '', category: '',
+                  quantity: '', image: {file: '', imagePreviewUrl: ''}};
   }
 
   handleAddBtnSubmit(event){
     event.preventDefault();
     this.props.onAddProductSubmit(this.state);
     alert("New Product Added!");
-    this.setState({name: '', description: '', image: '', price: '',
-      category: '', quantity: ''});
+    this.setState({name: '', description: '', price: '', category: '',
+                   quantity: '', image: {file: '', imagePreviewUrl: ''}});
   }
 
   handleCancelClick(){
     this.props.onHideAddPage();
-    this.setState({name: '', description: '', image: '', price: '',
-      category: '', quantity: ''});
+    this.setState({name: '', description: '', price: '', category: '',
+                   quantity: '', image: {file: '', imagePreviewUrl: ''}});
   }
 
   handleInputChange(event){
@@ -30,11 +32,39 @@ class AddProductForm extends React.Component{
     this.setState({
       [name]: value
     });
+  }
 
+  handleImageChange(event){
+    event.preventDefault();
+
+    let reader = new FileReader();
+    let file = event.target.files[0];
+
+    reader.onloadend = () => {
+      this.setState({image: {
+        file: file,
+        imagePreviewUrl: reader.result
+      }});
+    };
+
+    reader.readAsDataURL(file);
+  }
+
+  //testing purpose
+  handleCheckImage(){
+    alert('File: ' + this.state.image.file + '\nURL: ' + this.state.image.imagePreviewUrl);
   }
 
   render(){
     const showAddPage = this.props.showAddPage;
+
+    let imagePreviewUrl = this.state.image.imagePreviewUrl;
+    let $imagePreview = null;
+    if (imagePreviewUrl) {
+      $imagePreview = (<img src={imagePreviewUrl} />);
+    } else {
+      $imagePreview = (<div className="previewText">Please select an Image for Preview</div>);
+    }
 
     if(!showAddPage){
       return null;
@@ -68,16 +98,6 @@ class AddProductForm extends React.Component{
                   </td>
                 </tr>
                 <tr>
-                  <td>Image: </td>
-                  <td>
-                    <input
-                      name="image"
-                      type="text"
-                      value={this.state.image}
-                      onChange={this.handleInputChange} required/>
-                  </td>
-                </tr>
-                <tr>
                   <td>Price: </td>
                   <td>
                     <input
@@ -107,6 +127,19 @@ class AddProductForm extends React.Component{
                       type="number"
                       value={this.state.quantity}
                       onChange={this.handleInputChange} required/>
+                  </td>
+                </tr>
+                <tr>
+                  <td colSpan={2}>
+                    <div className="previewComponent">
+                        <input className="fileInput"
+                          type="file"
+                          onChange={this.handleImageChange} />
+                        <button onClick={this.handleCheckImage}>Check Image</button>
+                      <div className="imgPreview">
+                        {$imagePreview}
+                      </div>
+                    </div>
                   </td>
                 </tr>
               </tbody>
