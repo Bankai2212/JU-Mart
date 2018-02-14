@@ -1,12 +1,11 @@
 import React from 'react';
 
-
-
 class ProductItem extends React.Component {
 
   onDetailsClick(){
     this.props.onHideAddPage();
-    this.props.onShowDetailPage(this.props.index);
+    this.props.onShowDetailPage();
+    this.props.onSetProductIndex(this.props.index);
   }
 
   render() {
@@ -19,12 +18,13 @@ class ProductItem extends React.Component {
 
     return (
     <li>
-      <a href="#" onClick={this.onDetailsClick.bind(this)}>
+      <a href="#" onClick={this.onDetailsClick.bind(this)}
+        style={{textDecoration: 'none'}}>
         <div className="imgPreview">
           <img src={product.image.imagePreviewUrl}/>
         </div>
-        {name}
-        {product.price}
+        <p>{name}</p>
+        <p>RM {product.price}</p>
       </a>
     </li>
     );
@@ -45,7 +45,8 @@ class ViewProduct extends React.Component {
           product={product}
           index={index}
           onShowDetailPage={this.props.onShowDetailPage}
-          onHideAddPage={this.props.onHideAddPage}/>
+          onHideAddPage={this.props.onHideAddPage}
+          onSetProductIndex={this.props.onSetProductIndex}/>
       );
     });
 

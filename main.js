@@ -17,8 +17,8 @@ var defaultState = {
   showAddPage: false,
   showDetailPage: false,
   showEditPage: false,
+  productIndex: null,
   productList: []
-
 };
 
 function showAddPage(){
@@ -30,7 +30,6 @@ function showAddPage(){
 function showDetailPage(){
   return {
     type: 'SHOW_DETAIL_PAGE'
-
   };
 }
 
@@ -55,6 +54,13 @@ function hideDetailPage(){
 function hideEditPage(){
   return {
     type: 'HIDE_EDIT_PAGE'
+  };
+}
+
+function setProductIndex(index){
+  return {
+    type: 'SET_PRODUCT_INDEX',
+    index: index
   };
 }
 
@@ -89,7 +95,6 @@ function reducer(state, action){
     case 'SHOW_DETAIL_PAGE':
       var newState = Object.assign({}, state);
       newState.showDetailPage = true;
-
       return newState;
 
     case 'SHOW_EDIT_PAGE':
@@ -115,6 +120,11 @@ function reducer(state, action){
     case 'ADD_PRODUCT':
       var newState = Object.assign({}, state);
       newState.productList.push(action.product);
+      return newState;
+
+    case 'SET_PRODUCT_INDEX':
+      var newState = Object.assign({}, state);
+      newState.productIndex = action.index;
       return newState;
 
     case 'EDIT_PRODUCT':
@@ -155,6 +165,7 @@ class JU_Mart extends React.Component{
     this.handleAddProductSubmit = this.handleAddProductSubmit.bind(this);
     this.handleEditProductSubmit = this.handleEditProductSubmit.bind(this);
     this.handleDeleteAll = this.handleDeleteAll.bind(this);
+    this.handleSetProductIndex = this.handleSetProductIndex.bind(this);
     this.state = {showAddPage: false, showDetailPage: false, showEditPage:false, productIndex: null, productList: []};
   }
 
@@ -165,8 +176,8 @@ class JU_Mart extends React.Component{
         showAddPage: state.showAddPage,
         showDetailPage: state.showDetailPage,
         showEditPage: state.showEditPage,
+        productIndex: state.productIndex,
         productList: state.productList
-
       });
     });
   }
@@ -179,9 +190,12 @@ class JU_Mart extends React.Component{
     store.dispatch(hideAddPage());
   }
 
-  handleShowDetailPage(index){
+  handleShowDetailPage(){
     store.dispatch(showDetailPage());
-    this.setState({productIndex: index});
+  }
+
+  handleSetProductIndex(index){
+    store.dispatch(setProductIndex(index));
   }
 
   handleHideDetailPage(){
@@ -222,6 +236,7 @@ class JU_Mart extends React.Component{
             <ViewProduct
               products={this.state.productList}
               onShowDetailPage={this.handleShowDetailPage}
+              onSetProductIndex={this.handleSetProductIndex}
               onHideAddPage={this.handleHideAddPage}/>
           </div>
           <div className="flex-item3">
@@ -229,15 +244,13 @@ class JU_Mart extends React.Component{
               showAddPage={this.state.showAddPage}
               onHideAddPage={this.handleHideAddPage}
               onAddProductSubmit={this.handleAddProductSubmit}/>
-          </div>
-          <div className="flex-item3">
+
             <ProductDetail
               showDetailPage={this.state.showDetailPage}
               products={this.state.productList}
               productIndex={this.state.productIndex}
               onShowEditPage={this.handleShowEditPage}/>
-          </div>
-          <div className="flex-item3">
+
             <EditProductForm
               showEditPage={this.state.showEditPage}
               onHideEditPage={this.handleHideEditPage}

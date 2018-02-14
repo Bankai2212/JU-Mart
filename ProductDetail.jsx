@@ -14,19 +14,20 @@ class ProductDetail extends React.Component{
     const showDetailPage= this.props.showDetailPage;
     if(showDetailPage){
 
-      const product= this.props.products[this.props.productIndex];
-      const rows = [];
-      for (var keys in product){
-        rows.push(
-          <DetailsRow
-            key={keys}
-            value={product[keys]}/>
-        );
-      }
+      var product = this.props.products[this.props.productIndex];
+
       return(
       <div>
         <table>
-          {rows}
+          <tr><th>Product Name:</th><td>{product.name}</td></tr>
+          <tr><th>Description:</th><td>{product.description}</td></tr>
+          <tr><th>Price: RM</th><td>{product.price}</td></tr>
+          <tr><th>Category:</th><td>{product.category}</td></tr>
+          <tr><th>Quantity:</th><td>{product.quantity}</td></tr>
+          <tr>
+            <th>Image:</th>
+            <td><div className="imgPreview"><img src={product.image.imagePreviewUrl}/></div></td>
+          </tr>
         </table>
         <button onClick={this.handleEditBtnClick}>Edit Product</button>
       </div>
@@ -34,29 +35,6 @@ class ProductDetail extends React.Component{
     }else{
       return null;
     }
-  }
-}
-
-class DetailsRow extends React.Component{
-  render(){
-    if(this.props.key == 'image'){
-      return(
-      <tr>
-        <th>{this.props.key}</th>
-        <td>
-          <div className="imgPreview">
-            <img src={this.props.value.imagePreviewUrl}/>
-          </div>
-        </td>
-      </tr>
-      );
-    }
-    return(
-      <tr>
-        <th>{this.props.key}</th>
-        <td>{this.props.value}</td>
-      </tr>
-    );
   }
 }
 
