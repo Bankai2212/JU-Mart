@@ -7,7 +7,6 @@ class AddProductForm extends React.Component{
     this.handleCancelClick = this.handleCancelClick.bind(this);
     this.handleInputChange = this.handleInputChange.bind(this);
     this.handleImageChange = this.handleImageChange.bind(this);
-    this.handleCheckImage = this.handleCheckImage.bind(this);
     this.state = {name: '', description: '', price: '', category: '',
                   quantity: '', image: {file: '', imagePreviewUrl: ''}};
   }
@@ -50,11 +49,6 @@ class AddProductForm extends React.Component{
     reader.readAsDataURL(file);
   }
 
-  //testing purpose
-  handleCheckImage(){
-    alert('File: ' + this.state.image.file + '\nURL: ' + this.state.image.imagePreviewUrl);
-  }
-
   render(){
     const showAddPage = this.props.showAddPage;
 
@@ -84,7 +78,8 @@ class AddProductForm extends React.Component{
                       name="name"
                       type="text"
                       value={this.state.name}
-                      onChange={this.handleInputChange} required/>
+                      onChange={this.handleInputChange}
+                      size="30" required/>
                   </td>
                 </tr>
                 <tr>
@@ -94,7 +89,7 @@ class AddProductForm extends React.Component{
                       name="description"
                       value={this.state.description}
                       onChange={this.handleInputChange}
-                      rows="4" cols="20" required></textarea>
+                      rows="4" cols="30" required></textarea>
                   </td>
                 </tr>
                 <tr>
@@ -130,15 +125,20 @@ class AddProductForm extends React.Component{
                   </td>
                 </tr>
                 <tr>
-                  <td colSpan={2}>
+                  <td>Image: </td>
+                  <td>
                     <div className="previewComponent">
                         <input className="fileInput"
                           type="file"
-                          onChange={this.handleImageChange} />
-                        <button onClick={this.handleCheckImage}>Check Image</button>
-                      <div className="imgPreview">
-                        {$imagePreview}
-                      </div>
+                          onChange={this.handleImageChange}
+                          accept="image/*" required/>
+                    </div>
+                  </td>
+                </tr>
+                <tr>
+                  <td colSpan={2}>
+                    <div className="imgPreview">
+                      {$imagePreview}
                     </div>
                   </td>
                 </tr>

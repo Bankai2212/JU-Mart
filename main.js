@@ -3,12 +3,14 @@ import ReactDOM from 'react-dom';
 import { createStore } from 'redux';
 import Add_DeleteAll_Btn from './Add_DeleteAll_Btn.jsx';
 import AddProductForm from './AddProductForm.jsx';
+//testing purpose
+import TestListAll from './TestListAll.jsx';
 import './style.css';
 //import ImageUploader from 'react-image-uploader';
-import ImagesUploader from 'react-images-uploader';
-import 'react-images-uploader/styles.css';
-import 'react-images-uploader/font.css';
-import ImageUploader from 'react-images-upload';
+//import ImagesUploader from 'react-images-uploader';
+//import 'react-images-uploader/styles.css';
+//import 'react-images-uploader/font.css';
+//import ImageUploader from 'react-images-upload';
 
 var defaultState = {
   showAddPage: false,
@@ -85,9 +87,7 @@ class JU_Mart extends React.Component{
     this.handleHideAddPage = this.handleHideAddPage.bind(this);
     this.handleAddProductSubmit = this.handleAddProductSubmit.bind(this);
     this.handleDeleteAll = this.handleDeleteAll.bind(this);
-    this.onDrop = this.onDrop.bind(this);
-    this.check = this.check.bind(this);
-    this.state = {showAddPage: false, productList: [], pictures: []};
+    this.state = {showAddPage: false, productList: []};
   }
 
   componentWillMount() {
@@ -116,21 +116,6 @@ class JU_Mart extends React.Component{
     store.dispatch(deleteAll());
   }
 
-  onDrop(picture) {
-    this.setState({
-        pictures: this.state.pictures.concat(picture),
-    });
-  }
-
-  check(){
-    console.log(this.state.pictures);
-  }
-
-  //testing purpose
-  handleCheckData(){
-    console.log(store.getState());
-  }
-
   render(){
     return(
       <div>
@@ -140,36 +125,15 @@ class JU_Mart extends React.Component{
             <Add_DeleteAll_Btn
               onShowAddPage={this.handleShowAddPage}
               onDeleteAll={this.handleDeleteAll}/>
-              <br/>
-            <button type="button" onClick={this.handleCheckData.bind(this)}>Show Data</button>
+          </div>
+          <div className="flex-item">
+            <TestListAll productList={this.state.productList}/>
           </div>
           <div className="flex-item">
             <AddProductForm
               showAddPage={this.state.showAddPage}
               onHideAddPage={this.handleHideAddPage}
               onAddProductSubmit={this.handleAddProductSubmit}/>
-          </div>
-          <div className="flex-item">
-            <ImageUploader
-                withIcon={true}
-                buttonText='Choose images'
-                onChange={this.onDrop}
-                imgExtension={['.jpg', '.gif', '.png', '.gif']}
-                maxFileSize={5242880}
-            />
-            <br/>
-            <button onClick={this.check}>Check</button>
-          </div>
-          <div className="flex-item">
-            <ImagesUploader
-                url="#"
-                optimisticPreviews
-                onLoadEnd={(err) => {
-                    if (err) {
-                        console.error(err);
-                    }
-                }}
-                label="Upload multiple images"/>
           </div>
         </div>
       </div>
