@@ -7,8 +7,9 @@ class EditProductForm extends React.Component{
     this.handleCancelClick = this.handleCancelClick.bind(this);
     this.handleInputChange = this.handleInputChange.bind(this);
     this.handleImageChange = this.handleImageChange.bind(this);
+
     this.state = {name: '', description: '', price: '', category: '',
-                  quantity: '', image: {file: '', imagePreviewUrl: ''}};
+                   quantity: '', image: {file: '', imagePreviewUrl: ''}};
   }
 
   handleEditBtnSubmit(event){
@@ -69,6 +70,7 @@ class EditProductForm extends React.Component{
     }
     else{
       this.props.onHideDetailPage();
+      this.setState(this.props.products[this.props.productIndex]);
       return(
         <div>
           <h2>Edit Product Form</h2>
