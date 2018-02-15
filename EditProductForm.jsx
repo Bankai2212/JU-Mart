@@ -48,14 +48,16 @@ class EditProductForm extends React.Component{
     let reader = new FileReader();
     let file = event.target.files[0];
 
-    reader.onloadend = () => {
-      this.setState({image: {
-        file: file,
-        imagePreviewUrl: reader.result
-      }});
-    };
+    if(file != undefined){
+      reader.onloadend = () => {
+        this.setState({image: {
+          file: file,
+          imagePreviewUrl: reader.result
+        }});
+      };
 
-    reader.readAsDataURL(file);
+      reader.readAsDataURL(file);
+    }
   }
 
   render(){
