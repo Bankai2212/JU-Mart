@@ -19,12 +19,25 @@ class EditProductForm extends React.Component{
 
   handleEditBtnSubmit(event){
     event.preventDefault();
-    this.props.onEditProductSubmit(this.state);
-    alert("Product Updated!");
-    this.setState({name: '', description: '', price: '', category: '',
-                   quantity: '', image: {file: '', imagePreviewUrl: ''}});
-    this.props.onHideEditPage();
-    this.props.onShowDetailPage();
+    var msg = [];
+
+    if(this.state.price <= 0){
+      msg.push("Please enter a positive value for the price.");
+    }
+    if(this.state.quantity < 0) {
+      msg.push("Please enter a non-negative value for the quantity");
+    }
+    if(msg.length > 0){
+      alert(msg.join("\n"));
+    } else {
+      this.props.onEditProductSubmit(this.state);
+      alert("Product Updated!");
+      this.setState({name: '', description: '', price: '', category: '',
+                     quantity: '', image: {file: '', imagePreviewUrl: ''}});
+      document.getElementById("fileInput").value = null;
+      this.props.onHideEditPage();
+      this.props.onShowDetailPage();
+    }
   }
 
   handleCancelClick(){
@@ -141,6 +154,7 @@ class EditProductForm extends React.Component{
                     <div className="previewComponent">
                         <input className="fileInput"
                           type="file"
+                          id="fileInput"
                           onChange={this.handleImageChange}
                           accept="image/*" required/>
                     </div>
@@ -148,7 +162,7 @@ class EditProductForm extends React.Component{
                 </tr>
                 <tr>
                   <td colSpan={2}>
-                    <span>Image Preview</span><br/>
+                    <span>Image Preview:</span><br/>
                     <div className="imgPreview">
                       {$imagePreview}
                     </div>

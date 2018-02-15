@@ -24,7 +24,7 @@ class ProductDetail extends React.Component{
           <tbody>
             <tr><th>Product Name:</th><td>{product.name}</td></tr>
             <tr><th>Description:</th><td>{product.description}</td></tr>
-            <tr><th>Price: RM</th><td>{product.price}</td></tr>
+            <tr><th>Price:</th><td>RM {product.price}</td></tr>
             <tr><th>Category:</th><td>{product.category}</td></tr>
             <tr><th>Quantity:</th><td>{product.quantity}</td></tr>
             <tr>

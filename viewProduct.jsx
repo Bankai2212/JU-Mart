@@ -29,18 +29,17 @@ class ProductItem extends React.Component {
       </span>;
 
     return (
-    <li key={this.props.index} className="productItemContainer">
-      <a href="#" onClick={this.onDetailsClick.bind(this)}
-        style={{textDecoration: 'none'}} className="productItemFlex">
+    <div key={this.props.index} className="productItemContainer">
+      <div onClick={this.onDetailsClick.bind(this)} className="productItemFlex">
         <div className="imgPreview">
           <img src={product.image.imagePreviewUrl}/>
         </div>
-        <p>{name}</p>
-        <p>RM {product.price}</p>
-      </a>
+        <p style={{textAlign: 'center'}}><b>{name}</b></p>
+        <p style={{textAlign: 'center'}}>RM {product.price}</p>
+      </div>
       <input type="image" src="./src/deleteBtn.png" className="deleteBtn"
         onClick={this.onDeleteOneProduct.bind(this)}/>
-    </li>
+    </div>
     );
   }
 }
@@ -52,8 +51,14 @@ class ViewProduct extends React.Component {
 
   render() {
     const items = [];
+    const isSortOnPrice = this.props.isSortOnPrice;
+    const products = [].concat(this.props.products);
+    if(isSortOnPrice){
+      products.sort(function(a, b){
+        return parseFloat(a.price) - parseFloat(b.price)});
+    }
 
-    this.props.products.forEach((product, index) => {
+    products.forEach((product, index) => {
       items.push(
         <ProductItem
           product={product}
@@ -81,7 +86,7 @@ class ViewProduct extends React.Component {
     return (
       <div>
         <h1>Product List</h1>
-        <ul>{items}</ul>
+        <div className="productList">{items}</div>
       </div>
     );
   }

@@ -4,7 +4,7 @@ class AddProductForm extends React.Component{
   constructor(props){
     super(props);
     this.handleAddBtnSubmit = this.handleAddBtnSubmit.bind(this);
-    this.handleCancelClick = this.handleCancelClick.bind(this);
+    //this.handleCancelClick = this.handleCancelClick.bind(this);
     this.handleInputChange = this.handleInputChange.bind(this);
     this.handleImageChange = this.handleImageChange.bind(this);
     this.state = {name: '', description: '', price: '', category: '',
@@ -13,17 +13,32 @@ class AddProductForm extends React.Component{
 
   handleAddBtnSubmit(event){
     event.preventDefault();
-    this.props.onAddProductSubmit(this.state);
-    alert("New Product Added!");
-    this.setState({name: '', description: '', price: '', category: '',
-                   quantity: '', image: {file: '', imagePreviewUrl: ''}});
+    var msg = [];
+
+    if(this.state.price <= 0){
+      msg.push("Please enter a positive value for the price.");
+    }
+    if(this.state.quantity < 0) {
+      msg.push("Please enter a non-negative value for the quantity");
+    }
+    if(msg.length > 0){
+      alert(msg.join("\n"));
+    } else {
+      this.props.onAddProductSubmit(this.state);
+      alert("New Product Added!");
+      this.setState({name: '', description: '', price: '', category: '',
+                     quantity: '', image: {file: '', imagePreviewUrl: ''}});
+      document.getElementById("fileInput").value = null;
+    }
   }
 
+/*
   handleCancelClick(){
     this.props.onHideAddPage();
     this.setState({name: '', description: '', price: '', category: '',
                    quantity: '', image: {file: '', imagePreviewUrl: ''}});
   }
+*/
 
   handleInputChange(event){
     var name = event.target.name;
@@ -131,6 +146,7 @@ class AddProductForm extends React.Component{
                     <div className="previewComponent">
                         <input className="fileInput"
                           type="file"
+                          id="fileInput"
                           onChange={this.handleImageChange}
                           accept="image/*" required/>
                     </div>
@@ -138,6 +154,7 @@ class AddProductForm extends React.Component{
                 </tr>
                 <tr>
                   <td colSpan={2}>
+                    <span>Image Preview:</span><br/>
                     <div className="imgPreview">
                       {$imagePreview}
                     </div>
@@ -147,8 +164,6 @@ class AddProductForm extends React.Component{
             </table>
             <br/>
             <input type="submit" value="Add"/>
-            {' '}
-            <button type="button" onClick={this.handleCancelClick}>Cancel</button>
           </form>
         </div>
       );

@@ -3,9 +3,10 @@ import ReactDOM from 'react-dom';
 import { createStore } from 'redux';
 import Add_DeleteAll_Btn from './Add_DeleteAll_Btn.jsx';
 import AddProductForm from './AddProductForm.jsx';
-import ViewProduct from './viewProduct.jsx';
+import ViewProduct from './ViewProduct.jsx';
 import ProductDetail from './ProductDetail.jsx';
 import EditProductForm from './EditProductForm.jsx';
+import Search_Sort_Form from './Search_Sort_Form.jsx';
 import './style.css';
 //import ImageUploader from 'react-image-uploader';
 //import ImagesUploader from 'react-images-uploader';
@@ -14,11 +15,13 @@ import './style.css';
 //import ImageUploader from 'react-images-upload';
 
 var defaultState = {
-  showAddPage: false,
+  showAddPage: true,
   showDetailPage: false,
   showEditPage: false,
   productIndex: null,
-  productList: []
+  productList: [],
+  isSortOnCategory: false,
+  isSortOnPrice: false
 };
 
 function showAddPage(){
@@ -91,6 +94,18 @@ function deleteAll(){
   };
 }
 
+function toggleSortOnCategory(){
+  return {
+    type: 'TOGGLE_SORT_ON_CATEGORY'
+  }
+}
+
+function toggleSortOnPrice(){
+  return {
+    type: 'TOGGLE_SORT_ON_PRICE'
+  };
+}
+
 function reducer(state, action){
   switch(action.type){
     case 'SHOW_ADD_PAGE':
@@ -148,6 +163,16 @@ function reducer(state, action){
       newState.productList = [];
       return newState;
 
+    case 'TOGGLE_SORT_ON_CATEGORY':
+      var newState = Object.assign({}, state);
+      newState.isSortOnCategory = !newState.isSortOnCategory;
+      return newState;
+
+    case 'TOGGLE_SORT_ON_PRICE':
+      var newState = Object.assign({}, state);
+      newState.isSortOnPrice = !newState.isSortOnPrice;
+      return newState;
+
     default:
       return state;
   }
@@ -178,7 +203,11 @@ class JU_Mart extends React.Component{
     this.handleDeleteAll = this.handleDeleteAll.bind(this);
     this.handleSetProductIndex = this.handleSetProductIndex.bind(this);
     this.handleDeleteOneProduct = this.handleDeleteOneProduct.bind(this);
-    this.state = {showAddPage: false, showDetailPage: false, showEditPage:false, productIndex: null, productList: []};
+    this.handleToggleSortOnCategory = this.handleToggleSortOnCategory.bind(this);
+    this.handleToggleSortOnPrice = this.handleToggleSortOnPrice.bind(this);
+    this.state = {showAddPage: true, showDetailPage: false, showEditPage:false,
+      productIndex: null, productList: [], isSortOnCategory: false,
+      isSortOnPrice: false};
   }
 
   componentWillMount() {
@@ -189,7 +218,9 @@ class JU_Mart extends React.Component{
         showDetailPage: state.showDetailPage,
         showEditPage: state.showEditPage,
         productIndex: state.productIndex,
-        productList: state.productList
+        productList: state.productList,
+        isSortOnCategory: state.isSortOnCategory,
+        isSortOnPrice: state.isSortOnPrice
       });
     });
   }
@@ -238,12 +269,26 @@ class JU_Mart extends React.Component{
     store.dispatch(deleteAll());
   }
 
+  handleToggleSortOnCategory(){
+    store.dispatch(toggleSortOnCategory());
+  }
+
+  handleToggleSortOnPrice(){
+    store.dispatch(toggleSortOnPrice());
+  }
+
   render(){
     return(
       <div>
         <h1>JU-Mart</h1>
         <div className="container">
           <div className="flex-item1">
+            <Search_Sort_Form
+              isSortOnCategory={this.state.isSortOnCategory}
+              isSortOnPrice={this.state.isSortOnPrice}
+              onToggleSortOnCategory={this.handleToggleSortOnCategory}
+              onToggleSortOnPrice={this.handleToggleSortOnPrice}/>
+            <br/>
             <Add_DeleteAll_Btn
               onShowAddPage={this.handleShowAddPage}
               onDeleteAll={this.handleDeleteAll}
@@ -258,7 +303,8 @@ class JU_Mart extends React.Component{
               onHideAddPage={this.handleHideAddPage}
               onHideEditPage={this.handleHideEditPage}
               onHideDetailPage={this.handleHideDetailPage}
-              onDeleteOneProduct={this.handleDeleteOneProduct}/>
+              onDeleteOneProduct={this.handleDeleteOneProduct}
+              isSortOnPrice={this.state.isSortOnPrice}/>
           </div>
           <div className="flex-item3">
             <AddProductForm
