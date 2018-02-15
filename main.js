@@ -78,6 +78,13 @@ function editProduct(newProduct){
   };
 }
 
+function deleteOneProduct(index){
+  return {
+    type: 'DELETE_ONE_PRODUCT',
+    index: index
+  };
+}
+
 function deleteAll(){
   return {
     type: 'DELETE_ALL'
@@ -131,6 +138,11 @@ function reducer(state, action){
       newState.productList[newState.productIndex]= action.newProduct;
       return newState;
 
+    case 'DELETE_ONE_PRODUCT':
+      var newState = Object.assign({}, state);
+      newState.productList.splice(action.index, 1);
+      return newState;
+
     case 'DELETE_ALL':
       var newState = Object.assign({}, state);
       newState.productList = [];
@@ -165,6 +177,7 @@ class JU_Mart extends React.Component{
     this.handleEditProductSubmit = this.handleEditProductSubmit.bind(this);
     this.handleDeleteAll = this.handleDeleteAll.bind(this);
     this.handleSetProductIndex = this.handleSetProductIndex.bind(this);
+    this.handleDeleteOneProduct = this.handleDeleteOneProduct.bind(this);
     this.state = {showAddPage: false, showDetailPage: false, showEditPage:false, productIndex: null, productList: []};
   }
 
@@ -217,6 +230,10 @@ class JU_Mart extends React.Component{
     store.dispatch(addProduct(product));
   }
 
+  handleDeleteOneProduct(index){
+    store.dispatch(deleteOneProduct(index));
+  }
+
   handleDeleteAll(){
     store.dispatch(deleteAll());
   }
@@ -239,7 +256,9 @@ class JU_Mart extends React.Component{
               onShowDetailPage={this.handleShowDetailPage}
               onSetProductIndex={this.handleSetProductIndex}
               onHideAddPage={this.handleHideAddPage}
-              onHideEditPage={this.handleHideEditPage}/>
+              onHideEditPage={this.handleHideEditPage}
+              onHideDetailPage={this.handleHideDetailPage}
+              onDeleteOneProduct={this.handleDeleteOneProduct}/>
           </div>
           <div className="flex-item3">
             <AddProductForm

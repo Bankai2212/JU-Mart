@@ -9,6 +9,17 @@ class ProductItem extends React.Component {
     this.props.onSetProductIndex(this.props.index);
   }
 
+  onDeleteOneProduct(){
+    var response = confirm("Do you want to delete this product?\n" +
+        "Product Name: " + this.props.product.name);
+    if(response){
+      this.props.onHideDetailPage();
+      this.props.onHideEditPage();
+      this.props.onDeleteOneProduct();
+      alert("This product is deleted.");
+    }
+  }
+
   render() {
     const product = this.props.product;
     const name = product.quantity>0 ?
@@ -18,15 +29,17 @@ class ProductItem extends React.Component {
       </span>;
 
     return (
-    <li key={this.props.index}>
+    <li key={this.props.index} className="productItemContainer">
       <a href="#" onClick={this.onDetailsClick.bind(this)}
-        style={{textDecoration: 'none'}}>
+        style={{textDecoration: 'none'}} className="productItemFlex">
         <div className="imgPreview">
           <img src={product.image.imagePreviewUrl}/>
         </div>
         <p>{name}</p>
         <p>RM {product.price}</p>
       </a>
+      <input type="image" src="./src/deleteBtn.png" className="deleteBtn"
+        onClick={this.onDeleteOneProduct.bind(this)}/>
     </li>
     );
   }
@@ -47,9 +60,11 @@ class ViewProduct extends React.Component {
           key={index}
           index={index}
           onShowDetailPage={this.props.onShowDetailPage}
+          onHideDetailPage={this.props.onHideDetailPage}
           onHideAddPage={this.props.onHideAddPage}
           onHideEditPage={this.props.onHideEditPage}
-          onSetProductIndex={this.props.onSetProductIndex}/>
+          onSetProductIndex={this.props.onSetProductIndex}
+          onDeleteOneProduct={this.props.onDeleteOneProduct}/>
       );
     });
 
