@@ -9,7 +9,12 @@ class EditProductForm extends React.Component{
     this.handleImageChange = this.handleImageChange.bind(this);
 
     this.state = {name: '', description: '', price: '', category: '',
-                   quantity: '', image: {file: '', imagePreviewUrl: ''}};
+          quantity: '', image: {file: '', imagePreviewUrl: ''}};
+  }
+
+  componentWillReceiveProps(nextProps){
+    var product = nextProps.products[nextProps.productIndex];
+    this.setState(product);
   }
 
   handleEditBtnSubmit(event){
@@ -69,8 +74,6 @@ class EditProductForm extends React.Component{
       return null;
     }
     else{
-      this.props.onHideDetailPage();
-      this.setState(this.props.products[this.props.productIndex]);
       return(
         <div>
           <h2>Edit Product Form</h2>
@@ -85,7 +88,7 @@ class EditProductForm extends React.Component{
                       name="name"
                       type="text"
                       value={this.state.name}
-                      onChange={this.handleInputChange} />
+                      onChange={this.handleInputChange} required/>
                   </td>
                 </tr>
                 <tr>
@@ -95,7 +98,7 @@ class EditProductForm extends React.Component{
                       name="description"
                       value={this.state.description}
                       onChange={this.handleInputChange}
-                      rows="4" cols="20" ></textarea>
+                      rows="4" cols="20" required></textarea>
                   </td>
                 </tr>
                 <tr>
@@ -105,14 +108,14 @@ class EditProductForm extends React.Component{
                       name="price"
                       type="number"
                       value={this.state.price}
-                      onChange={this.handleInputChange} />
+                      onChange={this.handleInputChange} required/>
                   </td>
                 </tr>
                 <tr>
                   <td>New Category: </td>
                   <td>
                     <select name="category" value={this.state.category}
-                      onChange={this.handleInputChange} >
+                      onChange={this.handleInputChange} required>
                       <option value="">Please select a category</option>
                       <option value="Food">Food</option>
                       <option value="Handcraft Item">Handcraft Item</option>
@@ -127,22 +130,23 @@ class EditProductForm extends React.Component{
                       name="quantity"
                       type="number"
                       value={this.state.quantity}
-                      onChange={this.handleInputChange} />
+                      onChange={this.handleInputChange} required/>
                   </td>
                 </tr>
                 <tr>
-                  <td>Image: </td>
+                  <td>New Image: </td>
                   <td>
                     <div className="previewComponent">
                         <input className="fileInput"
                           type="file"
                           onChange={this.handleImageChange}
-                          accept="image/*" />
+                          accept="image/*" required/>
                     </div>
                   </td>
                 </tr>
                 <tr>
                   <td colSpan={2}>
+                    <span>Image Preview</span><br/>
                     <div className="imgPreview">
                       {$imagePreview}
                     </div>

@@ -4,6 +4,7 @@ class ProductItem extends React.Component {
 
   onDetailsClick(){
     this.props.onHideAddPage();
+    this.props.onHideEditPage();
     this.props.onShowDetailPage();
     this.props.onSetProductIndex(this.props.index);
   }
@@ -17,7 +18,7 @@ class ProductItem extends React.Component {
       </span>;
 
     return (
-    <li>
+    <li key={this.props.index}>
       <a href="#" onClick={this.onDetailsClick.bind(this)}
         style={{textDecoration: 'none'}}>
         <div className="imgPreview">
@@ -43,9 +44,11 @@ class ViewProduct extends React.Component {
       items.push(
         <ProductItem
           product={product}
+          key={index}
           index={index}
           onShowDetailPage={this.props.onShowDetailPage}
           onHideAddPage={this.props.onHideAddPage}
+          onHideEditPage={this.props.onHideEditPage}
           onSetProductIndex={this.props.onSetProductIndex}/>
       );
     });

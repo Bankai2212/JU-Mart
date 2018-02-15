@@ -9,10 +9,15 @@ class Add_DeleteAll_Btn extends React.Component{
 
   handleAddBtnClick(){
     this.props.onShowAddPage();
+    this.props.onHideDetailPage();
+    this.props.onHideEditPage();
   }
 
   handleDeleteAllBtnClick(){
     this.props.onDeleteAll();
+    this.props.onShowAddPage();
+    this.props.onHideDetailPage();
+    this.props.onHideEditPage();
     alert("All products have been deleted.");
   }
 

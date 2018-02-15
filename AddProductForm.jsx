@@ -39,14 +39,16 @@ class AddProductForm extends React.Component{
     let reader = new FileReader();
     let file = event.target.files[0];
 
-    reader.onloadend = () => {
-      this.setState({image: {
-        file: file,
-        imagePreviewUrl: reader.result
-      }});
-    };
+    if(file != undefined){
+      reader.onloadend = () => {
+        this.setState({image: {
+          file: file,
+          imagePreviewUrl: reader.result
+        }});
+      };
 
-    reader.readAsDataURL(file);
+      reader.readAsDataURL(file);
+    }
   }
 
   render(){
@@ -78,8 +80,7 @@ class AddProductForm extends React.Component{
                       name="name"
                       type="text"
                       value={this.state.name}
-                      onChange={this.handleInputChange}
-                      size="30" required/>
+                      onChange={this.handleInputChange} required/>
                   </td>
                 </tr>
                 <tr>
@@ -89,7 +90,7 @@ class AddProductForm extends React.Component{
                       name="description"
                       value={this.state.description}
                       onChange={this.handleInputChange}
-                      rows="4" cols="30" required></textarea>
+                      rows="4" cols="20" required></textarea>
                   </td>
                 </tr>
                 <tr>

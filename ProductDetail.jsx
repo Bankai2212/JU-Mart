@@ -7,6 +7,7 @@ class ProductDetail extends React.Component{
   }
 
   handleEditBtnClick(){
+    this.props.onHideDetailPage();
     this.props.onShowEditPage();
   }
 
@@ -19,15 +20,18 @@ class ProductDetail extends React.Component{
       return(
       <div>
         <table>
-          <tr><th>Product Name:</th><td>{product.name}</td></tr>
-          <tr><th>Description:</th><td>{product.description}</td></tr>
-          <tr><th>Price: RM</th><td>{product.price}</td></tr>
-          <tr><th>Category:</th><td>{product.category}</td></tr>
-          <tr><th>Quantity:</th><td>{product.quantity}</td></tr>
-          <tr>
-            <th>Image:</th>
-            <td><div className="imgPreview"><img src={product.image.imagePreviewUrl}/></div></td>
-          </tr>
+          <thead></thead>
+          <tbody>
+            <tr><th>Product Name:</th><td>{product.name}</td></tr>
+            <tr><th>Description:</th><td>{product.description}</td></tr>
+            <tr><th>Price: RM</th><td>{product.price}</td></tr>
+            <tr><th>Category:</th><td>{product.category}</td></tr>
+            <tr><th>Quantity:</th><td>{product.quantity}</td></tr>
+            <tr>
+              <th>Image:</th>
+              <td><div className="imgPreview"><img src={product.image.imagePreviewUrl}/></div></td>
+            </tr>
+          </tbody>
         </table>
         <button onClick={this.handleEditBtnClick}>Edit Product</button>
       </div>

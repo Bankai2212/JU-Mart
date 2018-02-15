@@ -229,14 +229,17 @@ class JU_Mart extends React.Component{
           <div className="flex-item1">
             <Add_DeleteAll_Btn
               onShowAddPage={this.handleShowAddPage}
-              onDeleteAll={this.handleDeleteAll}/>
+              onDeleteAll={this.handleDeleteAll}
+              onHideDetailPage={this.handleHideDetailPage}
+              onHideEditPage={this.handleHideEditPage}/>
           </div>
           <div className="flex-item2">
             <ViewProduct
               products={this.state.productList}
               onShowDetailPage={this.handleShowDetailPage}
               onSetProductIndex={this.handleSetProductIndex}
-              onHideAddPage={this.handleHideAddPage}/>
+              onHideAddPage={this.handleHideAddPage}
+              onHideEditPage={this.handleHideEditPage}/>
           </div>
           <div className="flex-item3">
             <AddProductForm
@@ -248,12 +251,12 @@ class JU_Mart extends React.Component{
               showDetailPage={this.state.showDetailPage}
               products={this.state.productList}
               productIndex={this.state.productIndex}
-              onShowEditPage={this.handleShowEditPage}/>
+              onShowEditPage={this.handleShowEditPage}
+              onHideDetailPage={this.handleHideDetailPage}/>
 
             <EditProductForm
               showEditPage={this.state.showEditPage}
               onHideEditPage={this.handleHideEditPage}
-              onHideDetailPage={this.handleHideDetailPage}
               onEditProductSubmit={this.handleEditProductSubmit}
               onShowDetailPage={this.handleShowDetailPage}
               products={this.state.productList}
