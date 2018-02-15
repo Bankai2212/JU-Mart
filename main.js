@@ -71,11 +71,10 @@ function addProduct(product){
   };
 }
 
-function editProduct(product, index){
+function editProduct(newProduct){
   return {
     type: 'EDIT_PRODUCT',
-    product: product,
-    index: index
+    newProduct: newProduct
   };
 }
 
@@ -129,7 +128,7 @@ function reducer(state, action){
 
     case 'EDIT_PRODUCT':
       var newState = Object.assign({}, state);
-      newState.productList[action.index]= action.product;
+      newState.productList[newState.productIndex]= action.newProduct;
       return newState;
 
     case 'DELETE_ALL':
@@ -210,8 +209,8 @@ class JU_Mart extends React.Component{
     store.dispatch(hideEditPage());
   }
 
-  handleEditProductSubmit(newProduct, index){
-    store.dispatch(editProduct(newProduct, index));
+  handleEditProductSubmit(newProduct){
+    store.dispatch(editProduct(newProduct));
   }
 
   handleAddProductSubmit(product){

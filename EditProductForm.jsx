@@ -13,16 +13,17 @@ class EditProductForm extends React.Component{
 
   handleEditBtnSubmit(event){
     event.preventDefault();
-    this.props.onEditProductSubmit(this.state, this.props.productIndex);
+    this.props.onEditProductSubmit(this.state);
     alert("Product Updated!");
     this.setState({name: '', description: '', price: '', category: '',
                    quantity: '', image: {file: '', imagePreviewUrl: ''}});
     this.props.onHideEditPage();
-    this.props.onShowDetailPage(this.props.productIndex);
+    this.props.onShowDetailPage();
   }
 
   handleCancelClick(){
     this.props.onHideEditPage();
+    this.props.onShowDetailPage();
     this.setState({name: '', description: '', price: '', category: '',
                    quantity: '', image: {file: '', imagePreviewUrl: ''}});
   }
@@ -134,7 +135,7 @@ class EditProductForm extends React.Component{
                         <input className="fileInput"
                           type="file"
                           onChange={this.handleImageChange}
-                          accept="image/*" required/>
+                          accept="image/*" />
                     </div>
                   </td>
                 </tr>
@@ -148,7 +149,7 @@ class EditProductForm extends React.Component{
               </tbody>
             </table>
             <br/>
-            <input type="submit" value="Edit"/>
+            <input type="submit" value="Save"/>
             {' '}
             <button type="button" onClick={this.handleCancelClick}>Cancel</button>
           </form>
