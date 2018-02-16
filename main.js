@@ -304,7 +304,8 @@ class JU_Mart extends React.Component{
               onHideEditPage={this.handleHideEditPage}
               onHideDetailPage={this.handleHideDetailPage}
               onDeleteOneProduct={this.handleDeleteOneProduct}
-              isSortOnPrice={this.state.isSortOnPrice}/>
+              isSortOnPrice={this.state.isSortOnPrice}
+              isSortOnCategory={this.state.isSortOnCategory}/>
           </div>
           <div className="flex-item3">
             <AddProductForm

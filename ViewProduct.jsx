@@ -37,7 +37,7 @@ class ProductItem extends React.Component {
         <p style={{textAlign: 'center'}}><b>{name}</b></p>
         <p style={{textAlign: 'center'}}>RM {product.price}</p>
       </div>
-      <input type="image" src="./src/deleteBtn.png" className="deleteBtn"
+      <input type="image" src="./assign1/deleteBtn.png" className="deleteBtn"
         onClick={this.onDeleteOneProduct.bind(this)}/>
     </div>
     );
@@ -52,11 +52,22 @@ class ViewProduct extends React.Component {
   render() {
     const items = [];
     const isSortOnPrice = this.props.isSortOnPrice;
+    const isSortOnCategory = this.props.isSortOnCategory;
     const products = [].concat(this.props.products);
     if(isSortOnPrice){
       products.sort(function(a, b){
         return parseFloat(a.price) - parseFloat(b.price)});
     }
+    if(isSortOnCategory){
+      products.sort(function(a, b){
+        var x = a.category.toLowerCase();
+        var y = b.category.toLowerCase();
+        if (x < y) {return -1;}
+        if (x > y) {return 1;}
+        return 0;
+      });
+    }
+
 
     products.forEach((product, index) => {
       items.push(
@@ -72,6 +83,8 @@ class ViewProduct extends React.Component {
           onDeleteOneProduct={this.props.onDeleteOneProduct}/>
       );
     });
+
+
 
     if(items.length == 0){
       return(
