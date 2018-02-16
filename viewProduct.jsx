@@ -25,7 +25,7 @@ class ProductItem extends React.Component {
     const name = product.quantity>0 ?
       product.name :
       <span style={{color: 'red'}}>
-        {product.name}
+        {product.name + "(out of stock)"}
       </span>;
 
     return (
