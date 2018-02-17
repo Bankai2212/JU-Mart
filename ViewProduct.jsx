@@ -13,9 +13,10 @@ class ProductItem extends React.Component {
     var response = confirm("Do you want to delete this product?\n" +
         "Product Name: " + this.props.product.name);
     if(response){
+      this.props.onShowAddPage();
       this.props.onHideDetailPage();
       this.props.onHideEditPage();
-      this.props.onDeleteOneProduct();
+      this.props.onDeleteOneProduct(this.props.index);
       alert("This product is deleted.");
     }
   }
@@ -25,7 +26,7 @@ class ProductItem extends React.Component {
     const name = product.quantity>0 ?
       product.name :
       <span style={{color: 'red'}}>
-        {product.name + "(out of stock)"}
+        {product.name + " (out of stock)"}
       </span>;
 
     return (
@@ -37,7 +38,7 @@ class ProductItem extends React.Component {
         <p style={{textAlign: 'center'}}><b>{name}</b></p>
         <p style={{textAlign: 'center'}}>RM {product.price}</p>
       </div>
-      <input type="image" src="./assign1/deleteBtn.png" className="deleteBtn"
+      <input type="image" src="./src/deleteBtn.png" className="deleteBtn"
         onClick={this.onDeleteOneProduct.bind(this)}/>
     </div>
     );
@@ -51,13 +52,25 @@ class ViewProduct extends React.Component {
 
   render() {
     const items = [];
-    const isSortOnPrice = this.props.isSortOnPrice;
+    const isSortOnPriceAscending = this.props.isSortOnPriceAscending;
+    const isSortOnPriceDescending = this.props.isSortOnPriceDescending;
     const isSortOnCategory = this.props.isSortOnCategory;
-    const products = [].concat(this.props.products);
-    if(isSortOnPrice){
+    var products = [].concat(this.props.products);
+
+    products.forEach((product, index) => {
+      product.index = index;
+    });
+
+    if(isSortOnPriceAscending){
       products.sort(function(a, b){
         return parseFloat(a.price) - parseFloat(b.price)});
     }
+
+    if(isSortOnPriceDescending){
+      products.sort(function(a, b){
+        return parseFloat(b.price) - parseFloat(a.price)});
+    }
+
     if(isSortOnCategory){
       products.sort(function(a, b){
         var x = a.category.toLowerCase();
@@ -69,12 +82,13 @@ class ViewProduct extends React.Component {
     }
 
 
-    products.forEach((product, index) => {
+    products.forEach((product) => {
       items.push(
         <ProductItem
           product={product}
-          key={index}
-          index={index}
+          key={product.index}
+          index={product.index}
+          onShowAddPage={this.props.onShowAddPage}
           onShowDetailPage={this.props.onShowDetailPage}
           onHideDetailPage={this.props.onHideDetailPage}
           onHideAddPage={this.props.onHideAddPage}

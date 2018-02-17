@@ -21,7 +21,8 @@ var defaultState = {
   productIndex: null,
   productList: [],
   isSortOnCategory: false,
-  isSortOnPrice: false
+  isSortOnPriceAscending: false,
+  isSortOnPriceDescending: false
 };
 
 function showAddPage(){
@@ -100,9 +101,15 @@ function toggleSortOnCategory(){
   }
 }
 
-function toggleSortOnPrice(){
+function toggleSortOnPriceAscending(){
   return {
-    type: 'TOGGLE_SORT_ON_PRICE'
+    type: 'TOGGLE_SORT_ON_PRICE_ASCENDING'
+  };
+}
+
+function toggleSortOnPriceDescending(){
+  return {
+    type: 'TOGGLE_SORT_ON_PRICE_DESCENDING'
   };
 }
 
@@ -168,9 +175,16 @@ function reducer(state, action){
       newState.isSortOnCategory = !newState.isSortOnCategory;
       return newState;
 
-    case 'TOGGLE_SORT_ON_PRICE':
+    case 'TOGGLE_SORT_ON_PRICE_ASCENDING':
       var newState = Object.assign({}, state);
-      newState.isSortOnPrice = !newState.isSortOnPrice;
+      newState.isSortOnPriceAscending = !newState.isSortOnPriceAscending;
+      newState.isSortOnPriceDescending = false;
+      return newState;
+
+    case 'TOGGLE_SORT_ON_PRICE_DESCENDING':
+      var newState = Object.assign({}, state);
+      newState.isSortOnPriceDescending = !newState.isSortOnPriceDescending;
+      newState.isSortOnPriceAscending = false;
       return newState;
 
     default:
@@ -204,10 +218,11 @@ class JU_Mart extends React.Component{
     this.handleSetProductIndex = this.handleSetProductIndex.bind(this);
     this.handleDeleteOneProduct = this.handleDeleteOneProduct.bind(this);
     this.handleToggleSortOnCategory = this.handleToggleSortOnCategory.bind(this);
-    this.handleToggleSortOnPrice = this.handleToggleSortOnPrice.bind(this);
+    this.handleToggleSortOnPriceAscending = this.handleToggleSortOnPriceAscending.bind(this);
+    this.handleToggleSortOnPriceDescending = this.handleToggleSortOnPriceDescending.bind(this);
     this.state = {showAddPage: true, showDetailPage: false, showEditPage:false,
       productIndex: null, productList: [], isSortOnCategory: false,
-      isSortOnPrice: false};
+      isSortOnPriceAscending: false, isSortOnPriceDescending: false};
   }
 
   componentWillMount() {
@@ -220,7 +235,8 @@ class JU_Mart extends React.Component{
         productIndex: state.productIndex,
         productList: state.productList,
         isSortOnCategory: state.isSortOnCategory,
-        isSortOnPrice: state.isSortOnPrice
+        isSortOnPriceAscending: state.isSortOnPriceAscending,
+        isSortOnPriceDescending: state.isSortOnPriceDescending
       });
     });
   }
@@ -273,8 +289,12 @@ class JU_Mart extends React.Component{
     store.dispatch(toggleSortOnCategory());
   }
 
-  handleToggleSortOnPrice(){
-    store.dispatch(toggleSortOnPrice());
+  handleToggleSortOnPriceAscending(){
+    store.dispatch(toggleSortOnPriceAscending());
+  }
+
+  handleToggleSortOnPriceDescending(){
+    store.dispatch(toggleSortOnPriceDescending());
   }
 
   render(){
@@ -285,9 +305,11 @@ class JU_Mart extends React.Component{
           <div className="flex-item1">
             <Search_Sort_Form
               isSortOnCategory={this.state.isSortOnCategory}
-              isSortOnPrice={this.state.isSortOnPrice}
+              isSortOnPriceAscending={this.state.isSortOnPriceAscending}
+              isSortOnPriceDescending={this.state.isSortOnPriceDescending}
               onToggleSortOnCategory={this.handleToggleSortOnCategory}
-              onToggleSortOnPrice={this.handleToggleSortOnPrice}/>
+              onToggleSortOnPriceAscending={this.handleToggleSortOnPriceAscending}
+              onToggleSortOnPriceDescending={this.handleToggleSortOnPriceDescending}/>
             <br/>
             <Add_DeleteAll_Btn
               onShowAddPage={this.handleShowAddPage}
@@ -298,13 +320,15 @@ class JU_Mart extends React.Component{
           <div className="flex-item2">
             <ViewProduct
               products={this.state.productList}
+              onShowAddPage={this.handleShowAddPage}
               onShowDetailPage={this.handleShowDetailPage}
               onSetProductIndex={this.handleSetProductIndex}
               onHideAddPage={this.handleHideAddPage}
               onHideEditPage={this.handleHideEditPage}
               onHideDetailPage={this.handleHideDetailPage}
               onDeleteOneProduct={this.handleDeleteOneProduct}
-              isSortOnPrice={this.state.isSortOnPrice}
+              isSortOnPriceAscending={this.state.isSortOnPriceAscending}
+              isSortOnPriceDescending={this.state.isSortOnPriceDescending}
               isSortOnCategory={this.state.isSortOnCategory}/>
           </div>
           <div className="flex-item3">

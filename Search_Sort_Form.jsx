@@ -9,8 +9,10 @@ class Search_Sort_Form extends React.Component{
   handleInputChange(event){
     if(event.target.name == "isSortOnCategory"){
       this.props.onToggleSortOnCategory();
-    } else if (event.target.name == "isSortOnPrice"){
-      this.props.onToggleSortOnPrice();
+    } else if (event.target.name == "isSortOnPriceAscending"){
+      this.props.onToggleSortOnPriceAscending();
+    } else if (event.target.name == "isSortOnPriceDescending"){
+      this.props.onToggleSortOnPriceDescending();
     }
   }
 
@@ -23,8 +25,10 @@ class Search_Sort_Form extends React.Component{
           <span>Sort by: </span><br/>
           <input type="checkbox" checked={this.props.isSortOnCategory}
             name="isSortOnCategory" onChange={this.handleInputChange}/>Category<br/>
-          <input type="checkbox" checked={this.props.isSortOnPrice}
-            name="isSortOnPrice" onChange={this.handleInputChange}/>Price<br/>
+          <input type="checkbox" checked={this.props.isSortOnPriceAscending}
+            name="isSortOnPriceAscending" onChange={this.handleInputChange}/>Price low to high<br/>
+          <input type="checkbox" checked={this.props.isSortOnPriceDescending}
+            name="isSortOnPriceDescending" onChange={this.handleInputChange}/>Price high to low<br/>
         </form>
       </div>
     );

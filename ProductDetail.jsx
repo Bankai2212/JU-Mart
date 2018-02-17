@@ -19,6 +19,7 @@ class ProductDetail extends React.Component{
 
       return(
       <div>
+        <h2>Product Details</h2>
         <table>
           <thead></thead>
           <tbody>
