@@ -7,8 +7,9 @@
   margin-left: 20px;
   border: 1px solid black;
   padding: 10px;
-  max-width: 160px;
+  max-width: 170px;
   background-color: rgba(144, 202, 249, 0.7);
+  border-radius: 5px;
 }
 
 .flex-item2 {
@@ -17,6 +18,7 @@
   padding: 10px;
   width: 850px;
   background-color: rgba(144, 202, 249, 0.7);
+  border-radius: 5px;
 }
 
 .flex-item3{
@@ -25,6 +27,7 @@
   padding: 10px;
   width: 370px;
   background-color: rgba(144, 202, 249, 0.7);
+  border-radius: 5px;
 }
 
 .Logo {
@@ -136,10 +139,20 @@ button, input[type=submit] {
   padding: 7px 20px;
   margin-left: auto;
   margin-right: auto;
+  transition-duration: 0.5s;
+  border-radius: 20px;
+  border-color: #1976D2;
+  border-style: solid;
+  background-color: rgba(255,255,255,0.8);
+  color: #1976D2;
+  font-weight: bold;
 }
 
 button:hover, input[type=submit]:hover {
   cursor: pointer;
+  box-shadow: 0 5px 20px 0 rgba(0,0,0,0.24), 0 10px 50px 0 rgba(0,0,0,0.19);
+  background-color: rgba(25,118,210,0.5);
+  color: white;
 }
 
 .addDeleteBtnGroup {
