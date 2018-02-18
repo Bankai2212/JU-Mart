@@ -84,16 +84,17 @@ class AddProductForm extends React.Component{
       return(
         <div>
           <h2>Add Product Form</h2>
-          <form onSubmit={this.handleAddBtnSubmit}>
+          <form onSubmit={this.handleAddBtnSubmit} className="submitForm">
             <table>
               <thead></thead>
               <tbody>
                 <tr>
-                  <td>Product Name: </td>
+                  <td className="fieldName">Product Name: </td>
                   <td>
                     <input
                       name="name"
                       type="text"
+                      placeholder="Product Name..."
                       value={this.state.name}
                       onChange={this.handleInputChange} required/>
                   </td>
@@ -103,17 +104,19 @@ class AddProductForm extends React.Component{
                   <td>
                     <textarea
                       name="description"
+                      placeholder="Product Description..."
                       value={this.state.description}
                       onChange={this.handleInputChange}
                       rows="4" cols="20" required></textarea>
                   </td>
                 </tr>
                 <tr>
-                  <td>Price: </td>
+                  <td>Price (RM): </td>
                   <td>
                     <input
                       name="price"
                       type="number"
+                      placeholder="eg. 10.00"
                       value={this.state.price}
                       onChange={this.handleInputChange} required/>
                   </td>
@@ -136,6 +139,7 @@ class AddProductForm extends React.Component{
                     <input
                       name="quantity"
                       type="number"
+                      placeholder="eg. 0, 10, ..."
                       value={this.state.quantity}
                       onChange={this.handleInputChange} required/>
                   </td>
@@ -153,8 +157,8 @@ class AddProductForm extends React.Component{
                   </td>
                 </tr>
                 <tr>
-                  <td colSpan={2}>
-                    <span>Image Preview:</span><br/>
+                  <td>Image Preview:</td>
+                  <td>
                     <div className="imgPreview">
                       {$imagePreview}
                     </div>

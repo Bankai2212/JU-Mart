@@ -1,7 +1,6 @@
 .container {
   display: flex;
   justify-content: space-between;
-  flex-wrap: wrap;
 }
 
 .flex-item1 {
@@ -16,7 +15,7 @@
   margin-left: 20px;
   border: 1px solid black;
   padding: 10px;
-  flex-grow: 1;
+  width: 850px;
   background-color: rgba(144, 202, 249, 0.7);
 }
 
@@ -24,7 +23,7 @@
   margin-left: 20px;
   border: 1px solid black;
   padding: 10px;
-  max-width: 30%;
+  width: 370px;
   background-color: rgba(144, 202, 249, 0.7);
 }
 
@@ -46,15 +45,15 @@
 }
 
 .fileInput {
-  border-bottom: 1px solid gray;
-  border-right: 1px solid gray;
-  border-top: 1px solid gray;
-  border-left: 1px solid gray;
   padding: 10px;
   margin-top: 5px;
   cursor: pointer;
-  box-shadow: 1px 1px 1px 1px #888888;
   background-color: #BBDEFB;
+  border-radius: 4px;
+  border-style: solid;
+  border-color: #1976D2;
+  border-width: 2px;
+  width: 200px;
 }
 
 .imgPreview {
@@ -64,12 +63,11 @@
   margin-right: auto;
   width: 200px;
   height: 200px;
-  border-left: 1px solid gray;
-  border-right: 1px solid gray;
-  border-top: 1px solid gray;
-  border-bottom: 1px solid gray;
-  box-shadow: 1px 1px 1px 1px #888888;
   background-color: #BBDEFB;
+  border-radius: 4px;
+  border-style: solid;
+  border-color: #1976D2;
+  border-width: 2px;
 }
 
 .imgPreview img {
@@ -105,4 +103,59 @@
   display: flex;
   flex-wrap: wrap;
   justify-content: flex-start;
+}
+
+.submitForm input[type=text], input[type=number] {
+  border-radius: 4px;
+  padding: 6px 10px;
+  border-style: solid;
+  border-color: #1976D2;
+}
+
+select {
+  border-radius: 4px;
+  padding: 6px 5px;
+  border-width: 2px;
+  border-color: #1976D2;
+}
+
+textarea {
+  border-radius: 4px;
+  border-style: solid;
+  border-width: 2px;
+  border-color: #1976D2;
+  padding: 6px 10px;
+}
+
+input[type=checkbox] {
+  width: 18px;
+  height: 18px;
+}
+
+button, input[type=submit] {
+  padding: 7px 20px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.addDeleteBtnGroup {
+  display: flex;
+  flex-direction: column;
+}
+
+.searchBar {
+  width: 100%;
+  border-radius: 4px;
+  padding: 6px 0px;
+  border-style: solid;
+  border-color: #1976D2;
+}
+
+.fieldName {
+  width: 140px;
+}
+
+table {
+  table-layout: fixed;
+  width: 250px;
 }

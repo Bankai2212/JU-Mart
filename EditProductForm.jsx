@@ -92,16 +92,17 @@ class EditProductForm extends React.Component{
       return(
         <div>
           <h2>Edit Product Form</h2>
-          <form onSubmit={this.handleEditBtnSubmit}>
+          <form onSubmit={this.handleEditBtnSubmit} className="submitForm">
             <table>
               <thead></thead>
               <tbody>
                 <tr>
-                  <td>New Product Name: </td>
+                  <td className="fieldName">New Product Name: </td>
                   <td>
                     <input
                       name="name"
                       type="text"
+                      placeholder="Product Name..."
                       value={this.state.name}
                       onChange={this.handleInputChange} required/>
                   </td>
@@ -111,17 +112,19 @@ class EditProductForm extends React.Component{
                   <td>
                     <textarea
                       name="description"
+                      placeholder="Product Description..."
                       value={this.state.description}
                       onChange={this.handleInputChange}
                       rows="4" cols="20" required></textarea>
                   </td>
                 </tr>
                 <tr>
-                  <td>New Price: </td>
+                  <td>New Price (RM): </td>
                   <td>
                     <input
                       name="price"
                       type="number"
+                      placeholder="eg. 10.00"
                       value={this.state.price}
                       onChange={this.handleInputChange} required/>
                   </td>
@@ -144,6 +147,7 @@ class EditProductForm extends React.Component{
                     <input
                       name="quantity"
                       type="number"
+                      placeholder="eg. 0, 10, ..."
                       value={this.state.quantity}
                       onChange={this.handleInputChange} required/>
                   </td>
@@ -161,8 +165,8 @@ class EditProductForm extends React.Component{
                   </td>
                 </tr>
                 <tr>
-                  <td colSpan={2}>
-                    <span>Image Preview:</span><br/>
+                  <td>Image Preview:</td>
+                  <td>
                     <div className="imgPreview">
                       {$imagePreview}
                     </div>

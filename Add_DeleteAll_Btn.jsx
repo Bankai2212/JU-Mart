@@ -23,7 +23,7 @@ class Add_DeleteAll_Btn extends React.Component{
 
   render(){
     return(
-      <div>
+      <div className="addDeleteBtnGroup">
         <button onClick={this.handleAddBtnClick}>Add New Product</button>
         <br/><br/>
         <button onClick={this.handleDeleteAllBtnClick}>Delete All Products</button>
