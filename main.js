@@ -300,7 +300,7 @@ class JU_Mart extends React.Component{
   render(){
     return(
       <div>
-        <h1>JU-Mart</h1>
+        <span className="Logo"><img src="./src/images/shopping-cart.png"/>JU-Mart</span>
         <div className="container">
           <div className="flex-item1">
             <Search_Sort_Form

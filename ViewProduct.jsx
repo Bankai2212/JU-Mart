@@ -38,7 +38,7 @@ class ProductItem extends React.Component {
         <p style={{textAlign: 'center'}}><b>{name}</b></p>
         <p style={{textAlign: 'center'}}>RM {product.price}</p>
       </div>
-      <input type="image" src="./src/deleteBtn.png" className="deleteBtn"
+      <input type="image" src="./src/images/deleteBtn.png" className="deleteBtn"
         onClick={this.onDeleteOneProduct.bind(this)}/>
     </div>
     );
@@ -103,7 +103,7 @@ class ViewProduct extends React.Component {
     if(items.length == 0){
       return(
         <div>
-          <h1>Product List</h1>
+          <h2>Product List</h2>
           <h4>There are no product in the list</h4>
         </div>
       );
