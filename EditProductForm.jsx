@@ -122,7 +122,7 @@ class EditProductForm extends React.Component{
                       placeholder="Product Description..."
                       value={this.state.description}
                       onChange={this.handleInputChange}
-                      rows="4" cols="20" required></textarea>
+                      rows="4" cols="25" required></textarea>
                   </td>
                 </tr>
                 <tr>

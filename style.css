@@ -7,7 +7,7 @@
   margin-left: 20px;
   border: 1px solid black;
   padding: 10px;
-  max-width: 170px;
+  width: 170px;
   background-color: rgba(144, 202, 249, 0.7);
   border-radius: 5px;
 }
@@ -128,6 +128,8 @@ textarea {
   border-width: 2px;
   border-color: #1976D2;
   padding: 6px 10px;
+  font-family: "Arial", "Helvetica Neue" ;
+  font-size: 13px;
 }
 
 input[type=checkbox] {

@@ -20,10 +20,10 @@ class Search_Sort_Form extends React.Component{
     return(
       <div>
         <form>
-          <span>Search:</span><br/>
+          <span><b>Search:</b></span><br/>
           <input type="text" name="searchText" onChange={this.handleInputChange}
             placeholder="Search Product Name" className="searchBar"/><br/><br/>
-          <span>Sort by: </span><br/>
+          <span><b>Sort by: </b></span><br/>
           <input type="checkbox" checked={this.props.isSortOnCategory}
             name="isSortOnCategory" onChange={this.handleInputChange}/>Category<br/>
           <input type="checkbox" checked={this.props.isSortOnPriceAscending}
