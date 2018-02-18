@@ -50,6 +50,13 @@ class EditProductForm extends React.Component{
   handleInputChange(event){
     var name = event.target.name;
     var value = event.target.value;
+
+    if(name == 'price' && value != 0){
+      value = Math.round(value * 100) / 100;
+    } else if(name == 'quantity' && value != 0) {
+      value = Math.floor(value);
+    }
+
     this.setState({
       [name]: value
     });
@@ -175,9 +182,11 @@ class EditProductForm extends React.Component{
               </tbody>
             </table>
             <br/>
-            <input type="submit" value="Save"/>
-            {' '}
-            <button type="button" onClick={this.handleCancelClick}>Cancel</button>
+            <div className="centerBtnGroup">
+              <input type="submit" value="Save"/>
+              {' '}
+              <button type="button" onClick={this.handleCancelClick}>Cancel</button>
+            </div>
           </form>
         </div>
       );

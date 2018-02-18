@@ -43,6 +43,13 @@ class AddProductForm extends React.Component{
   handleInputChange(event){
     var name = event.target.name;
     var value = event.target.value;
+    
+    if(name == 'price' && value != 0){
+      value = Math.round(value * 100) / 100;
+    } else if(name == 'quantity' && value != 0) {
+      value = Math.floor(value);
+    }
+
     this.setState({
       [name]: value
     });
@@ -167,7 +174,9 @@ class AddProductForm extends React.Component{
               </tbody>
             </table>
             <br/>
-            <input type="submit" value="Add"/>
+            <div className="centerBtnGroup">
+              <input type="submit" value="Add"/>
+            </div>
           </form>
         </div>
       );

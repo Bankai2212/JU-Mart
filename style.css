@@ -7,7 +7,7 @@
   margin-left: 20px;
   border: 1px solid black;
   padding: 10px;
-  max-width: 15%;
+  max-width: 160px;
   background-color: rgba(144, 202, 249, 0.7);
 }
 
@@ -138,6 +138,10 @@ button, input[type=submit] {
   margin-right: auto;
 }
 
+button:hover, input[type=submit]:hover {
+  cursor: pointer;
+}
+
 .addDeleteBtnGroup {
   display: flex;
   flex-direction: column;
@@ -158,4 +162,13 @@ button, input[type=submit] {
 table {
   table-layout: fixed;
   width: 250px;
+}
+
+th {
+  text-align: left;
+}
+
+.centerBtnGroup {
+  display: flex;
+  justify-content: center;
 }

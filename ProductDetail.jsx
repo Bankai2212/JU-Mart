@@ -34,7 +34,10 @@ class ProductDetail extends React.Component{
             </tr>
           </tbody>
         </table>
-        <button onClick={this.handleEditBtnClick}>Edit Product</button>
+        <br/>
+        <div className="centerBtnGroup">
+          <button onClick={this.handleEditBtnClick}>Edit Product</button>
+        </div>
       </div>
       );
     }else{

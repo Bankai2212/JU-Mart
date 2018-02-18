@@ -147,7 +147,11 @@ function reducer(state, action){
 
     case 'ADD_PRODUCT':
       var newState = Object.assign({}, state);
-      newState.productList.push(action.product);
+      var newProduct = Object.assign({}, action.product);
+      if(parseInt(newProduct.quantity) == 0){
+        newProduct.quantity = 0;
+      }
+      newState.productList.push(newProduct);
       return newState;
 
     case 'SET_PRODUCT_INDEX':
@@ -157,7 +161,11 @@ function reducer(state, action){
 
     case 'EDIT_PRODUCT':
       var newState = Object.assign({}, state);
-      newState.productList[newState.productIndex]= action.newProduct;
+      var newProduct = Object.assign({}, action.newProduct);
+      if(parseInt(newProduct.quantity) == 0){
+        newProduct.quantity = 0;
+      }
+      newState.productList[newState.productIndex] = newProduct;
       return newState;
 
     case 'DELETE_ONE_PRODUCT':
