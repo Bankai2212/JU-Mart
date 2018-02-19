@@ -20,9 +20,12 @@ var defaultState = {
   showEditPage: false,
   productIndex: null,
   productList: [],
-  isSortOnCategory: false,
+  isSelectOnFood: false,
+  isSelectOnHomemade: false,
+  isSelectOnHandcraft: false,
   isSortOnPriceAscending: false,
-  isSortOnPriceDescending: false
+  isSortOnPriceDescending: false,
+  filterText: ""
 };
 
 function showAddPage(){
@@ -95,9 +98,21 @@ function deleteAll(){
   };
 }
 
-function toggleSortOnCategory(){
+function toggleSelectOnFood(){
   return {
-    type: 'TOGGLE_SORT_ON_CATEGORY'
+    type: 'TOGGLE_SELECT_ON_FOOD'
+  }
+}
+
+function toggleSelectOnHomemade(){
+  return {
+    type: 'TOGGLE_SELECT_ON_HOMEMADE'
+  }
+}
+
+function toggleSelectOnHandcraft(){
+  return {
+    type: 'TOGGLE_SELECT_ON_HANDCRAFT'
   }
 }
 
@@ -110,6 +125,13 @@ function toggleSortOnPriceAscending(){
 function toggleSortOnPriceDescending(){
   return {
     type: 'TOGGLE_SORT_ON_PRICE_DESCENDING'
+  };
+}
+
+function filterTextChange(filterText){
+  return {
+    type: 'FILTER_TEXT_CHANGE',
+    filterText: filterText
   };
 }
 
@@ -178,9 +200,25 @@ function reducer(state, action){
       newState.productList = [];
       return newState;
 
-    case 'TOGGLE_SORT_ON_CATEGORY':
+    case 'TOGGLE_SELECT_ON_FOOD':
       var newState = Object.assign({}, state);
-      newState.isSortOnCategory = !newState.isSortOnCategory;
+      newState.isSelectOnFood = !newState.isSelectOnFood;
+      newState.isSelectOnHomemade = false;
+      newState.isSelectOnHandcraft = false;
+      return newState;
+
+    case 'TOGGLE_SELECT_ON_HOMEMADE':
+      var newState = Object.assign({}, state);
+      newState.isSelectOnHomemade = !newState.isSelectOnHomemade;
+      newState.isSelectOnFood = false;
+      newState.isSelectOnHandcraft = false;
+      return newState;
+
+    case 'TOGGLE_SELECT_ON_HANDCRAFT':
+      var newState = Object.assign({}, state);
+      newState.isSelectOnHandcraft = !newState.isSelectOnHandcraft;
+      newState.isSelectOnFood = false;
+      newState.isSelectOnHomemade = false;
       return newState;
 
     case 'TOGGLE_SORT_ON_PRICE_ASCENDING':
@@ -193,6 +231,11 @@ function reducer(state, action){
       var newState = Object.assign({}, state);
       newState.isSortOnPriceDescending = !newState.isSortOnPriceDescending;
       newState.isSortOnPriceAscending = false;
+      return newState;
+
+    case 'FILTER_TEXT_CHANGE':
+      var newState = Object.assign({}, state);
+      newState.filterText = action.filterText;
       return newState;
 
     default:
@@ -225,12 +268,17 @@ class JU_Mart extends React.Component{
     this.handleDeleteAll = this.handleDeleteAll.bind(this);
     this.handleSetProductIndex = this.handleSetProductIndex.bind(this);
     this.handleDeleteOneProduct = this.handleDeleteOneProduct.bind(this);
-    this.handleToggleSortOnCategory = this.handleToggleSortOnCategory.bind(this);
     this.handleToggleSortOnPriceAscending = this.handleToggleSortOnPriceAscending.bind(this);
     this.handleToggleSortOnPriceDescending = this.handleToggleSortOnPriceDescending.bind(this);
+    this.handleFilterTextChange = this.handleFilterTextChange.bind(this);
+    this.handleSelectOnFood = this.handleSelectOnFood.bind(this);
+    this.handleSelectOnHandcraft = this.handleSelectOnHandcraft.bind(this);
+    this.handleSelectOnHomemade = this.handleSelectOnHomemade.bind(this);
     this.state = {showAddPage: true, showDetailPage: false, showEditPage:false,
-      productIndex: null, productList: [], isSortOnCategory: false,
-      isSortOnPriceAscending: false, isSortOnPriceDescending: false};
+      productIndex: null, productList: [], isSelectOnFood: false,
+      isSelectOnHomemade: false, isSelectOnHandcraft: false,
+      isSortOnPriceAscending: false, isSortOnPriceDescending: false,
+      filterText: ""};
   }
 
   componentWillMount() {
@@ -242,9 +290,12 @@ class JU_Mart extends React.Component{
         showEditPage: state.showEditPage,
         productIndex: state.productIndex,
         productList: state.productList,
-        isSortOnCategory: state.isSortOnCategory,
+        isSelectOnFood: state.isSelectOnFood,
+        isSelectOnHomemade: state.isSelectOnHomemade,
+        isSelectOnHandcraft: state.isSelectOnHandcraft,
         isSortOnPriceAscending: state.isSortOnPriceAscending,
-        isSortOnPriceDescending: state.isSortOnPriceDescending
+        isSortOnPriceDescending: state.isSortOnPriceDescending,
+        filterText: state.filterText
       });
     });
   }
@@ -293,16 +344,28 @@ class JU_Mart extends React.Component{
     store.dispatch(deleteAll());
   }
 
-  handleToggleSortOnCategory(){
-    store.dispatch(toggleSortOnCategory());
-  }
-
   handleToggleSortOnPriceAscending(){
     store.dispatch(toggleSortOnPriceAscending());
   }
 
   handleToggleSortOnPriceDescending(){
     store.dispatch(toggleSortOnPriceDescending());
+  }
+
+  handleFilterTextChange(filterText){
+    store.dispatch(filterTextChange(filterText));
+  }
+
+  handleSelectOnFood(){
+    store.dispatch(toggleSelectOnFood());
+  }
+
+  handleSelectOnHomemade(){
+    store.dispatch(toggleSelectOnHomemade());
+  }
+
+  handleSelectOnHandcraft(){
+    store.dispatch(toggleSelectOnHandcraft());
   }
 
   render(){
@@ -312,12 +375,17 @@ class JU_Mart extends React.Component{
         <div className="container">
           <div className="flex-item1">
             <Search_Sort_Form
-              isSortOnCategory={this.state.isSortOnCategory}
               isSortOnPriceAscending={this.state.isSortOnPriceAscending}
               isSortOnPriceDescending={this.state.isSortOnPriceDescending}
-              onToggleSortOnCategory={this.handleToggleSortOnCategory}
+              isSelectOnFood={this.state.isSelectOnFood}
+              isSelectOnHomemade={this.state.isSelectOnHomemade}
+              isSelectOnHandcraft={this.state.isSelectOnHandcraft}
               onToggleSortOnPriceAscending={this.handleToggleSortOnPriceAscending}
-              onToggleSortOnPriceDescending={this.handleToggleSortOnPriceDescending}/>
+              onToggleSortOnPriceDescending={this.handleToggleSortOnPriceDescending}
+              onFilterTextChange={this.handleFilterTextChange}
+              onHandleSelectOnFood={this.handleSelectOnFood}
+              onHandleSelectOnHomemade={this.handleSelectOnHomemade}
+              onHandleSelectOnHandcraft={this.handleSelectOnHandcraft}/>
             <br/>
             <Add_DeleteAll_Btn
               onShowAddPage={this.handleShowAddPage}
@@ -337,7 +405,10 @@ class JU_Mart extends React.Component{
               onDeleteOneProduct={this.handleDeleteOneProduct}
               isSortOnPriceAscending={this.state.isSortOnPriceAscending}
               isSortOnPriceDescending={this.state.isSortOnPriceDescending}
-              isSortOnCategory={this.state.isSortOnCategory}/>
+              isSelectOnFood={this.state.isSelectOnFood}
+              isSelectOnHomemade={this.state.isSelectOnHomemade}
+              isSelectOnHandcraft={this.state.isSelectOnHandcraft}
+              filterText={this.state.filterText}/>
           </div>
           <div className="flex-item3">
             <AddProductForm

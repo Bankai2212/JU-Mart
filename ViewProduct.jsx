@@ -54,7 +54,11 @@ class ViewProduct extends React.Component {
     const items = [];
     const isSortOnPriceAscending = this.props.isSortOnPriceAscending;
     const isSortOnPriceDescending = this.props.isSortOnPriceDescending;
-    const isSortOnCategory = this.props.isSortOnCategory;
+    const isSelectOnFood = this.props.isSelectOnFood;
+    const isSelectOnHomemade = this.props.isSelectOnHomemade;
+    const isSelectOnHandcraft = this.props.isSelectOnHandcraft;
+    const filterText = this.props.filterText;
+    var categoryName = "";
     var products = [].concat(this.props.products);
 
     products.forEach((product, index) => {
@@ -71,18 +75,33 @@ class ViewProduct extends React.Component {
         return parseFloat(b.price) - parseFloat(a.price)});
     }
 
-    if(isSortOnCategory){
-      products.sort(function(a, b){
-        var x = a.category.toLowerCase();
-        var y = b.category.toLowerCase();
-        if (x < y) {return -1;}
-        if (x > y) {return 1;}
-        return 0;
-      });
-    }
+    if(isSelectOnFood)
+      categoryName = "Food";
+    else if (isSelectOnHomemade)
+      categoryName = "Homemade Item";
+    else if (isSelectOnHandcraft)
+      categoryName = "Handcraft Item";
+    else
+      categoryName = "";
 
 
     products.forEach((product) => {
+      if (product.name.toLowerCase().indexOf(filterText.toLowerCase()) === -1) {
+        return;
+      }
+
+      if (isSelectOnFood && product.category != "Food"){
+        return;
+      }
+
+      if (isSelectOnHomemade && product.category != "Homemade Item"){
+        return;
+      }
+
+      if (isSelectOnHandcraft && product.category != "Handcraft Item"){
+        return;
+      }
+
       items.push(
         <ProductItem
           product={product}
@@ -113,6 +132,7 @@ class ViewProduct extends React.Component {
     return (
       <div>
         <h1>Product List</h1>
+        <h3>{categoryName}</h3>
         <div className="productList">{items}</div>
       </div>
     );

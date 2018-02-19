@@ -32,14 +32,6 @@ class AddProductForm extends React.Component{
     }
   }
 
-/*
-  handleCancelClick(){
-    this.props.onHideAddPage();
-    this.setState({name: '', description: '', price: '', category: '',
-                   quantity: '', image: {file: '', imagePreviewUrl: ''}});
-  }
-*/
-
   handleInputChange(event){
     var name = event.target.name;
     var value = event.target.value;
