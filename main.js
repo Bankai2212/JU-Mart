@@ -8,11 +8,6 @@ import ProductDetail from './ProductDetail.jsx';
 import EditProductForm from './EditProductForm.jsx';
 import Search_Sort_Form from './Search_Sort_Form.jsx';
 import './style.css';
-//import ImageUploader from 'react-image-uploader';
-//import ImagesUploader from 'react-images-uploader';
-//import 'react-images-uploader/styles.css';
-//import 'react-images-uploader/font.css';
-//import ImageUploader from 'react-images-upload';
 
 var defaultState = {
   showAddPage: true,
@@ -242,15 +237,6 @@ function reducer(state, action){
       return state;
   }
 };
-
-/* used by react-image-uploader
-function uploadImage(file, done, progress) {
-  // do your upload logic here
-  let error = null;
-  let uploadedImageURL = 'dog.jpg';
-  done(error, uploadedImageURL);
-}
-*/
 
 var store = createStore(reducer, defaultState);
 

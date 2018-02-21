@@ -4,7 +4,6 @@ class AddProductForm extends React.Component{
   constructor(props){
     super(props);
     this.handleAddBtnSubmit = this.handleAddBtnSubmit.bind(this);
-    //this.handleCancelClick = this.handleCancelClick.bind(this);
     this.handleInputChange = this.handleInputChange.bind(this);
     this.handleImageChange = this.handleImageChange.bind(this);
     this.state = {name: '', description: '', price: '', category: '',

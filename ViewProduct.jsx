@@ -131,7 +131,7 @@ class ViewProduct extends React.Component {
 
     return (
       <div>
-        <h1>Product List</h1>
+        <h2>Product List</h2>
         <h3>{categoryName}</h3>
         <div className="productList">{items}</div>
       </div>
