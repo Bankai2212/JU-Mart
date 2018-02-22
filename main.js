@@ -371,7 +371,10 @@ class JU_Mart extends React.Component{
               onFilterTextChange={this.handleFilterTextChange}
               onHandleSelectOnFood={this.handleSelectOnFood}
               onHandleSelectOnHomemade={this.handleSelectOnHomemade}
-              onHandleSelectOnHandcraft={this.handleSelectOnHandcraft}/>
+              onHandleSelectOnHandcraft={this.handleSelectOnHandcraft}
+              onHideDetailPage={this.handleHideDetailPage}
+              onHideEditPage={this.handleHideEditPage}
+              onShowAddPage={this.handleShowAddPage}/>
             <br/>
             <Add_DeleteAll_Btn
               onShowAddPage={this.handleShowAddPage}

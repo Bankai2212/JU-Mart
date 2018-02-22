@@ -15,10 +15,19 @@ class Search_Sort_Form extends React.Component{
       this.props.onFilterTextChange(event.target.value);
     } else if (event.target.name == "isSelectOnFood"){
       this.props.onHandleSelectOnFood();
+      this.props.onHideEditPage();
+      this.props.onHideDetailPage();
+      this.props.onShowAddPage();
     } else if (event.target.name == "isSelectOnHomemade"){
       this.props.onHandleSelectOnHomemade();
+      this.props.onHideEditPage();
+      this.props.onHideDetailPage();
+      this.props.onShowAddPage();
     } else if (event.target.name == "isSelectOnHandcraft"){
       this.props.onHandleSelectOnHandcraft();
+      this.props.onHideEditPage();
+      this.props.onHideDetailPage();
+      this.props.onShowAddPage();
     }
   }
 
